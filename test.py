@@ -40,7 +40,7 @@ class Object3d:
         self.draw()
 
     def draw(self):
-        vertexes = np.dot(self.vertexes, self.render.camera.camera_matrix())
+        vertexes = np.dot(self.vertexes, self.render.camera.cam_matrix())
         vertexes = np.dot(vertexes, self.render.projection.projection_matrix)
         vertexes /= vertexes[:, -1].reshape(-1, 1)
         vertexes[(vertexes > 2) | (vertexes < -2)] = 0

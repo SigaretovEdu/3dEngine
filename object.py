@@ -11,11 +11,11 @@ class Object3d:
         self.faces = np.array([(0, 1, 2, 3), (1, 5, 6, 2), (3, 2, 6, 7), (0, 1, 5, 4), (4, 5, 6, 7), (0, 4, 7, 3)])
 
     def update(self):
-        self.movement()
+        self.move()
         self.draw()
 
     def draw(self):
-        vertexes = np.dot(self.vertexes, self.render.camera.camera_matrix())
+        vertexes = np.dot(self.vertexes, self.render.camera.cam_matrix())
         vertexes = np.dot(vertexes, self.render.projection.projection_matrix)
         vertexes /= vertexes[:, -1].reshape(-1, 1)
         vertexes[(vertexes > 2) | (vertexes < -2)] = 0
@@ -31,20 +31,20 @@ class Object3d:
             if not np.any((vertex == self.render.HfWidth) | (vertex == self.render.HfHeight)):
                 pg.draw.circle(self.render.screen, pg.Color('white'), vertex, 6)
 
-    def movement(self):
-        pass
+    def move(self):
+        self.rotate_around_y(-(pg.time.get_ticks() % 0.005))
 
-    def translate(self, pos):
-        self.vertexes = self.vertexes @ mt.translate(pos)
+    def move_to(self, pos):
+        self.vertexes = self.vertexes @ mt.move_to(pos)
 
-    def scale(self, scale_to):
-        self.vertexes = self.vertexes @ mt.scale(scale_to)
+    def scale_change(self, scale_to):
+        self.vertexes = self.vertexes @ mt.scale_change(scale_to)
 
-    def rotate_x(self, angle):
+    def rotate_around_x(self, angle):
         self.vertexes = self.vertexes @ mt.rotate_x(angle)
 
-    def rotate_y(self, angle):
+    def rotate_around_y(self, angle):
         self.vertexes = self.vertexes @ mt.rotate_y(angle)
 
-    def rotate_z(self, angle):
+    def rotate_around_z(self, angle):
         self.vertexes = self.vertexes @ mt.rotate_z(angle)

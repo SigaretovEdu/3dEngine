@@ -18,7 +18,8 @@ class Render:
 
         self.camera = Camera(self, [-0.5, 0.5, -4])
         self.projection = Projection(self)
-        self.object = Object3d(self)
+        self.objects = []
+        self.objects.append(Object3d(self))
 
         self.font = pg.font.SysFont('Times New Roman', 16)
         self.font_color = (pg.Color('black'))
@@ -30,7 +31,8 @@ class Render:
 
     def draw(self):
         self.screen.fill(pg.Color('lightskyblue1'))
-        self.object.update()
+        for i in range(len(self.objects)):
+            self.objects[i].update()
 
         x = self.font.render("x y " + str(pg.mouse.get_pos()[0]), True, self.font_color, self.font_background)
         y = self.font.render(str(pg.mouse.get_pos()[1]), True, self.font_color, self.font_background)

@@ -3,79 +3,65 @@ from matrix import *
 
 
 class Camera:
-    def __init__(self, render, position):
+    def __init__(self, render, cords):
         self.render = render
-        self.position = np.array([*position, 1.0])
-        self.forward = np.array([0, 0, 1, 1])
-        self.up = np.array([0, 1, 0, 1])
-        self.right = np.array([1, 0, 0, 1])
-        self.h_fov = math.pi / 3
-        self.v_fov = self.h_fov * (render.height / render.width)
-        self.near_plane = 0.1
-        self.far_plane = 100
-        self.moving_speed = 0.1
-        self.rotation_speed = 0.015
+        self.position = np.array([*cords, 1.0])
+        self.pars = [(np.array([0, 0, 1, 1])),(np.array([0, 1, 0, 1])),(np.array([1, 0, 0, 1]))]
+        self.screen_par = [(math.pi / 3), ((math.pi / 3) * (render.height / render.width))]
+        self.close, self.far = 0.1, 100
+        self.ms, self.rs = 0.3, 0.015
 
     def control(self):
         key = pg.key.get_pressed()
         if key[pg.K_a]:
-            self.position -= self.right * self.moving_speed
+            self.position -= self.pars[2] * self.ms
         if key[pg.K_d]:
-            self.position += self.right * self.moving_speed
+            self.position += self.pars[2] * self.ms
         if key[pg.K_w]:
-            self.position += self.forward * self.moving_speed
+            self.position += self.pars[0] * self.ms
         if key[pg.K_s]:
-            self.position -= self.forward * self.moving_speed
+            self.position -= self.pars[0] * self.ms
         if key[pg.K_SPACE]:
-            self.position += self.up * self.moving_speed
+            self.position += self.pars[1] * self.ms
         if key[pg.K_LSHIFT]:
-            self.position -= self.up * self.moving_speed
+            self.position -= self.pars[1] * self.ms
 
         if key[pg.K_LEFT]:
-            self.camera_yaw(-self.rotation_speed)
+            self.rot_cam(-self.rs, 0)
         if key[pg.K_RIGHT]:
-            self.camera_yaw(self.rotation_speed)
+            self.rot_cam(self.rs, 0)
         if key[pg.K_UP]:
-            self.camera_pitch(-self.rotation_speed)
+            self.rot_cam(-self.rs, 1)
         if key[pg.K_DOWN]:
-            self.camera_pitch(self.rotation_speed)
+            self.rot_cam(self.rs, 1)
         if key[pg.K_r]:
             self.position = np.array([-0.5, 0.5, -4, 1.0])
-            self.forward = np.array([0, 0, 1, 1])
-            self.up = np.array([0, 1, 0, 1])
-            self.right = np.array([1, 0, 0, 1])
+            self.pars[0], self.pars[1], self.pars[2] = np.array([0, 0, 1, 1]), np.array([0, 1, 0, 1]), np.array([1, 0, 0, 1])
 
-    def camera_yaw(self, angle):
-        rotate = rotate_y(angle)
-        self.forward = self.forward @ rotate
-        self.right = self.right @ rotate
-        self.up = self.up @ rotate
+    def rot_cam(self, angle, ch):
+        if ch == 0:
+            rot = rotate_y(angle)
+        else:
+            rot = rotate_x(angle)
+        for i in range(len(self.pars)):
+            self.pars[i] = self.pars[i] @ rot
 
-    def camera_pitch(self, angle):
-        rotate = rotate_x(angle)
-        self.forward = self.forward @ rotate
-        self.right = self.right @ rotate
-        self.up = self.up @ rotate
-
-    def translate_matrix(self):
+    def cam_matrix(self):
         x, y, z, w = self.position
-        return np.array([
+        mt1 = np.array([
             [1, 0, 0, 0],
             [0, 1, 0, 1],
             [0, 0, 1, 0],
             [-x, -y, -z, 1]
         ])
 
-    def rotate_matrix(self):
-        rx, ry, rz, w = self.right
-        fx, fy, fz, w = self.forward
-        ux, uy, uz, w = self.up
-        return np.array([
+        rx, ry, rz, w = self.pars[2]
+        fx, fy, fz, w = self.pars[0]
+        ux, uy, uz, w = self.pars[1]
+        mt2 = np.array([
             [rx, ux, fx, 0],
             [ry, uy, fy, 0],
             [rz, uz, fz, 0],
             [0, 0, 0, 1]
         ])
-
-    def camera_matrix(self):
-        return self.translate_matrix() @ self.rotate_matrix()
+        return mt1 @ mt2
