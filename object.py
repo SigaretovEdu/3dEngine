@@ -3,9 +3,14 @@ import numpy as np
 import pygame as pg
 import matrix as mt
 
-
+u"""
+Файл, в котором мы задаем объекты
+"""
 class Object3d:
     def __init__(self, render):
+        u"""
+        Передаем вершины и грани единичного куба
+        """
         self.render = render
         self.vertexes = np.array([(0, 0, 0, 1), (0, 1, 0, 1), (1, 1, 0, 1), (1, 0, 0, 1),
                                   (0, 0, 1, 1), (0, 1, 1, 1), (1, 1, 1, 1), (1, 0, 1, 1)])
