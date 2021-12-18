@@ -39,6 +39,9 @@ class Object3d:
             if not np.any((vertex == self.render.HfWidth) | (vertex == self.render.HfHeight)):
                 pg.draw.circle(self.render.screen, pg.Color('white'), vertex, 6)
 
+    u"""
+    Функции, в котороых мы задаем функции перемещения объекта в пространстве
+    """
     def move(self):
         self.rotate_around_y(-(pg.time.get_ticks() % 0.005))
 

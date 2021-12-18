@@ -15,9 +15,9 @@ class Projection_Matrix:
         """
         near_clipping_plane = render.camera.close
         far_clipping_plane = render.camera.far
-        right_zone = math.tan(render.height / 2)
+        right_zone = math.tan(render.camera.screen_par[0] / 2)
         left_zone = - right_zone
-        top_zone = math.tan(render.width / 2)
+        top_zone = math.tan(render.camera.screen_par[1] / 2)
         bottom_zone = -top_zone
 
         self.formation_of_clipping_matrix = np.array([

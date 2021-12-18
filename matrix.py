@@ -25,7 +25,7 @@ def rotate_around_x(alfa):
     pos2 = np.array([
         [1, 0, 0, 0],
         [0, math.cos(alfa), math.sin(alfa), 0],
-        [0, -math.cos(alfa), math.sin(alfa), 0],
+        [0, -math.sin(alfa), math.cos(alfa), 0],
         [0, 0, 0, 1]
     ])
     return pos2
