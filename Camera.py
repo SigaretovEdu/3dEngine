@@ -40,9 +40,9 @@ class Camera:
 
     def rot_cam(self, angle, ch):
         if ch == 0:
-            rot = rotate_y(angle)
+            rot = rotate_around_y(angle)
         else:
-            rot = rotate_x(angle)
+            rot = rotate_around_x(angle)
         for i in range(len(self.pars)):
             self.pars[i] = self.pars[i] @ rot
 
