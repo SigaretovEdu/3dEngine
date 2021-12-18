@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import math
+
 import numpy as np
 import pygame as pg
 import matrix as mt
@@ -52,9 +54,12 @@ class Object3d:
     """
     def move(self):
         u"""
-        Функции, перманентно вращающая объект вокруг оси y
+        Функции, перманентно изменяющее положение или размеры объекта объекта
         """
-        self.rotate_around_y(-(pg.time.get_ticks() % 0.005))
+        # self.move_to([0,math.sin(pg.time.get_ticks() % 0.01),0])
+        self.rotate_around_x((pg.time.get_ticks() % 0.01))
+        # self.rotate_around_y((pg.time.get_ticks() % 0.01))
+        # self.rotate_around_z((pg.time.get_ticks() % 0.01))
 
     def move_to(self, pos):
         u"""

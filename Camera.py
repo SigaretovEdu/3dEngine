@@ -17,7 +17,7 @@ class Camera:
         self.pars = [(np.array([0, 0, 1, 1])),(np.array([0, 1, 0, 1])),(np.array([1, 0, 0, 1]))]
         self.screen_par = [(math.pi / 3), ((math.pi / 3) * (render.height / render.width))]
         self.close, self.far = 0.1, 100
-        self.ms, self.rs = 0.3, 0.015
+        self.ms, self.rs = 0.1, 0.015
 
     def control(self):
         u"""
