@@ -12,6 +12,9 @@ class Projection_Matrix:
     def __init__(self, render):
         u"""
         Импорт необходимых переменных для формирования матриц
+        near_clipping_plane и far_clipping_plane - грани призмы преломления
+        right_zone и left_zone - числа для рассчета преломления
+        top_zone и bottom_zone - числа для рассчета преломления
         """
         near_clipping_plane = render.camera.close
         far_clipping_plane = render.camera.far

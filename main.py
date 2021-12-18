@@ -12,6 +12,11 @@ class Render:
     def __init__(self):
         u"""
         Функция инициализации стандартных для pygame переменных
+        wight и hight - разрешение
+        HfWidth и HfHeight - видимость камеры
+        screen - экран
+        camera - камера
+        font-задний план
         """
         pg.init()
         infoObject = pg.display.Info()

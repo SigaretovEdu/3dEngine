@@ -14,6 +14,9 @@ class Object3d:
     def __init__(self, render):
         u"""
         Передаем вершины и грани единичного куба
+        render - 'отрисовка'
+        vertexes - координаты вершин куба
+        faces - вершины у граней куда
         """
         self.render = render
         self.vertexes = np.array([(0, 0, 0, 1), (0, 1, 0, 1), (1, 1, 0, 1), (1, 0, 0, 1),
