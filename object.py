@@ -6,6 +6,8 @@ import matrix as mt
 u"""
 Файл, в котором мы задаем объекты
 """
+
+
 class Object3d:
     def __init__(self, render):
         u"""
@@ -22,10 +24,10 @@ class Object3d:
 
     def draw(self):
         vertexes = np.dot(self.vertexes, self.render.camera.cam_matrix())
-        vertexes = np.dot(vertexes, self.render.projection.projection_matrix)
+        vertexes = np.dot(vertexes, self.render.projection.formation_of_clipping_matrix)
         vertexes /= vertexes[:, -1].reshape(-1, 1)
         vertexes[(vertexes > 2) | (vertexes < -2)] = 0
-        vertexes = np.dot(vertexes, self.render.projection.to_screen_matrix)
+        vertexes = np.dot(vertexes, self.render.projection.vertex_to_screen_matrix)
         vertexes = vertexes[:, :2]
 
         for face in self.faces:

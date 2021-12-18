@@ -12,13 +12,15 @@ class Render:
     u"""
     Стандартный класс программы, отвечающий за создания тела программы
     """
+
     def __init__(self):
         u"""
         Функция инициализации стандартных для pygame переменных
         """
         pg.init()
         infoObject = pg.display.Info()
-        self.res = self.width, self.height = infoObject.current_w, infoObject.current_h
+        self.width, self.height = infoObject.current_w, infoObject.current_h
+        self.res = self.width, self.height
         self.HfWidth, self.HfHeight = self.width // 2, self.height // 2
         self.screen = pg.display.set_mode(self.res, pg.FULLSCREEN)
         self.FPS, self.clock = 60, pg.time.Clock()
@@ -35,7 +37,6 @@ class Render:
         pg.mouse.set_visible(True)
         pg.mouse.set_pos(self.HfWidth, self.HfHeight)
 
-
     def draw(self):
         u"""
         Класс для отрисовки объекта на экране
@@ -51,10 +52,9 @@ class Render:
         x_rect.centerx, x_rect.centery = 30, 10
         y_rect.centerx, y_rect.centery = 75, 10
         FPS_rect.centerx, FPS_rect.centery = 25, 30
-        self.screen.blit(x,x_rect)
-        self.screen.blit(y,y_rect)
-        self.screen.blit(FPS,FPS_rect)
-
+        self.screen.blit(x, x_rect)
+        self.screen.blit(y, y_rect)
+        self.screen.blit(FPS, FPS_rect)
 
     def run(self):
         u"""
@@ -82,6 +82,7 @@ class Render:
 
             pg.display.flip()
             self.clock.tick(self.FPS)
+
 
 if __name__ == '__main__':
     window = Render()
