@@ -81,6 +81,9 @@ class Render:
 
 
 if __name__ == '__main__':
+    u"""
+    Инициализация проекта
+    """
     window = Render()
     window.run()
 
