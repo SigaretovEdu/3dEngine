@@ -9,7 +9,13 @@ from object import *
 
 
 class Render:
+    u"""
+    Стандартный класс программы, отвечающий за создания тела программы
+    """
     def __init__(self):
+        u"""
+        Функция инициализации стандартных для pygame переменных
+        """
         pg.init()
         infoObject = pg.display.Info()
         self.res = self.width, self.height = infoObject.current_w, infoObject.current_h
@@ -31,6 +37,9 @@ class Render:
 
 
     def draw(self):
+        u"""
+        Класс для отрисовки объекта на экране
+        """
         self.screen.fill(pg.Color('lightskyblue1'))
         for i in range(len(self.objects)):
             self.objects[i].update()
@@ -48,6 +57,10 @@ class Render:
 
 
     def run(self):
+        u"""
+        Функция, работающая при работе программы, которая двигает объект
+        при нажатии на определенные клавиши
+        """
         while True:
             self.draw()
             self.camera.control()

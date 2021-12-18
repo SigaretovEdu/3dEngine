@@ -3,8 +3,14 @@ import math
 import numpy as np
 
 class Projection_Matrix:
+    u"""
+    Данный класс служит для простроения матрицы проекции, которая служит для корректного
+    отображения объекта
+    """
     def __init__(self,render):
-        # Тут всё импортируется из класса камера, так что названия поменяешь если надо
+        u"""
+        Импорт необходимых переменных
+        """
         near_clipping_plane=render.camera.close
         far_clipping_plane = render.camera.far
         right_zone = math.tan(render.camera.hight/2)
