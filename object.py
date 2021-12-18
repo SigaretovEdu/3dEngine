@@ -19,10 +19,18 @@ class Object3d:
         self.faces = np.array([(0, 1, 2, 3), (1, 5, 6, 2), (3, 2, 6, 7), (0, 1, 5, 4), (4, 5, 6, 7), (0, 4, 7, 3)])
 
     def update(self):
+        u"""
+        Функция отрисовки объекта
+        """
         self.move()
         self.draw()
 
     def draw(self):
+        u"""
+        Функция, перемещающая вершины объекты в простраства взгляда камеры;
+        создание пространства отсечения;
+        выбор осей
+        """
         vertexes = np.dot(self.vertexes, self.render.camera.cam_matrix())
         vertexes = np.dot(vertexes, self.render.projection.formation_of_clipping_matrix)
         vertexes /= vertexes[:, -1].reshape(-1, 1)
@@ -43,19 +51,37 @@ class Object3d:
     Функции, в котороых мы задаем функции перемещения объекта в пространстве
     """
     def move(self):
+        u"""
+        Функции, перманентно вращающая объект вокруг оси y
+        """
         self.rotate_around_y(-(pg.time.get_ticks() % 0.005))
 
     def move_to(self, pos):
+        u"""
+        Функция перемещения объекта
+        """
         self.vertexes = self.vertexes @ mt.move_to(pos)
 
     def scale_change(self, scale_to):
+        u"""
+        Функция изменения размера
+        """
         self.vertexes = self.vertexes @ mt.scale_change(scale_to)
 
     def rotate_around_x(self, angle):
+        u"""
+        Функции, вращающая объект вокруг оси x
+        """
         self.vertexes = self.vertexes @ mt.rotate_around_x(angle)
 
     def rotate_around_y(self, angle):
+        u"""
+        Функции, вращающая объект вокруг оси y
+        """
         self.vertexes = self.vertexes @ mt.rotate_around_y(angle)
 
     def rotate_around_z(self, angle):
+        u"""
+        Функции, вращающая объект вокруг оси z
+        """
         self.vertexes = self.vertexes @ mt.rotate_around_z(angle)

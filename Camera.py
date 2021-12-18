@@ -4,7 +4,14 @@ from matrix import *
 
 
 class Camera:
+    u"""
+    Класс, отвечающий за комеру
+    """
     def __init__(self, render, cords):
+        u"""
+        Функция, в которой вводим начальную позицию камеры
+        и векторы ориентации, области видимости
+        """
         self.render = render
         self.position = np.array([*cords, 1.0])
         self.pars = [(np.array([0, 0, 1, 1])),(np.array([0, 1, 0, 1])),(np.array([1, 0, 0, 1]))]
@@ -13,6 +20,9 @@ class Camera:
         self.ms, self.rs = 0.3, 0.015
 
     def control(self):
+        u"""
+        Функция, которая в зависимости от нажатой кнопки перемещает камеру в пространстве
+        """
         key = pg.key.get_pressed()
         if key[pg.K_a]:
             self.position -= self.pars[2] * self.ms
@@ -40,6 +50,10 @@ class Camera:
             self.pars[0], self.pars[1], self.pars[2] = np.array([0, 0, 1, 1]), np.array([0, 1, 0, 1]), np.array([1, 0, 0, 1])
 
     def rot_cam(self, angle, ch):
+        u"""
+        Функция, перемещающая камеру в начало координат
+        (матрицы вращения)
+        """
         if ch == 0:
             rot = rotate_around_y(angle)
         else:
@@ -48,6 +62,10 @@ class Camera:
             self.pars[i] = self.pars[i] @ rot
 
     def cam_matrix(self):
+        u"""
+        Функция, перемещающая камеру в начало координат
+        (матрицы перемещения)
+        """
         x, y, z, w = self.position
         mt1 = np.array([
             [1, 0, 0, 0],

@@ -11,7 +11,7 @@ class Projection_Matrix:
 
     def __init__(self, render):
         u"""
-        Импорт необходимых переменных
+        Импорт необходимых переменных для формирования матриц
         """
         near_clipping_plane = render.camera.close
         far_clipping_plane = render.camera.far
@@ -19,14 +19,18 @@ class Projection_Matrix:
         left_zone = - right_zone
         top_zone = math.tan(render.camera.screen_par[1] / 2)
         bottom_zone = -top_zone
-
+        u"""
+        Формирование самой матрицы 
+        """
         self.formation_of_clipping_matrix = np.array([
             [2 / (right_zone - left_zone), 0, 0, 0],
             [0, 2 / (top_zone - bottom_zone), 0, 0],
             [0, 0, (far_clipping_plane + near_clipping_plane) / (far_clipping_plane - near_clipping_plane), 1],
             [0, 0, -2 * near_clipping_plane * far_clipping_plane / (far_clipping_plane - near_clipping_plane), 0]
         ])
-
+        u"""
+        Преобразование координат вершин в наше разрешение экрана
+        """
         self.vertex_to_screen_matrix = np.array([
             [render.HfWidth, 0, 0, 0],
             [0, -render.HfHeight, 0, 0],
