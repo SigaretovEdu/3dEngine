@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-import numpy as np
-import pygame as pg
-import sys
-import os
-from projection import *
 from Camera import *
 from object import *
+from projection import *
 
 
 class Render:

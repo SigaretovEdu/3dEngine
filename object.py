@@ -56,7 +56,7 @@ class Object3d:
         u"""
         Функции, перманентно изменяющее положение или размеры объекта объекта
         """
-        # self.move_to([0,math.sin(pg.time.get_ticks() % 0.01),0])
+        #self.move_to([0,math.sin(pg.time.get_ticks() % 0.01),0])
         self.rotate_around_x((pg.time.get_ticks() % 0.01))
         # self.rotate_around_y((pg.time.get_ticks() % 0.01))
         # self.rotate_around_z((pg.time.get_ticks() % 0.01))
