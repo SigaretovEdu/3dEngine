@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 import pygame as pg
 import sys
@@ -17,7 +18,7 @@ class Render:
         self.FPS, self.clock = 60, pg.time.Clock()
 
         self.camera = Camera(self, [-0.5, 0.5, -4])
-        self.projection = Projection(self)
+        self.projection = Projection_Matrix(self)
         self.objects = []
         self.objects.append(Object3d(self))
 

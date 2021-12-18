@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 import pygame as pg
 import matrix as mt
@@ -41,10 +42,10 @@ class Object3d:
         self.vertexes = self.vertexes @ mt.scale_change(scale_to)
 
     def rotate_around_x(self, angle):
-        self.vertexes = self.vertexes @ mt.rotate_x(angle)
+        self.vertexes = self.vertexes @ mt.rotate_around_x(angle)
 
     def rotate_around_y(self, angle):
-        self.vertexes = self.vertexes @ mt.rotate_y(angle)
+        self.vertexes = self.vertexes @ mt.rotate_around_y(angle)
 
     def rotate_around_z(self, angle):
-        self.vertexes = self.vertexes @ mt.rotate_z(angle)
+        self.vertexes = self.vertexes @ mt.rotate_around_z(angle)

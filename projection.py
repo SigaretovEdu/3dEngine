@@ -1,31 +1,27 @@
+# -*- coding: utf-8 -*-
 import math
 import numpy as np
 
+class Projection_Matrix:
+    def __init__(self,render):
+        # Тут всё импортируется из класса камера, так что названия поменяешь если надо
+        near_clipping_plane=render.camera.close
+        far_clipping_plane = render.camera.far
+        right_zone = math.tan(render.camera.hight/2)
+        left_zone =- right_zone
+        top_zone = math.tan(render.camera.wight/2)
+        bottom_zone = -top_zone
 
-class Projection:
-    def __init__(self, render):
-        NEAR = render.camera.close
-        FAR = render.camera.far
-        RIGHT = math.tan(render.camera.screen_par[0] / 2)
-        LEFT = -RIGHT
-        TOP = math.tan(render.camera.screen_par[1] / 2)
-        BOTTOM = -TOP
-
-        m00 = 2 / (RIGHT - LEFT)
-        m11 = 2 / (TOP - BOTTOM)
-        m22 = (FAR + NEAR) / (FAR - NEAR)
-        m32 = -2 * NEAR * FAR / (FAR - NEAR)
-        self.projection_matrix = np.array([
-            [m00, 0, 0, 0],
-            [0, m11, 0, 0],
-            [0, 0, m22, 1],
-            [0, 0, m32, 0]
+        self.formation_of_clipping_matrix=np.array([
+            [2/(right_zone-left_zone), 0, 0, 0],
+            [0, 2/(top_zone-bottom_zone),0,0],
+            [0,0,(far_clipping_plane+near_clipping_plane)/(far_clipping_plane-near_clipping_plane),1],
+            [0,0,-2*near_clipping_plane*far_clipping_plane/(far_clipping_plane-near_clipping_plane),0]
         ])
 
-        HW, HH = render.HfWidth, render.HfHeight
-        self.to_screen_matrix = np.array([
-            [HW, 0, 0, 0],
-            [0, -HH, 0, 0],
-            [0, 0, 1, 0],
-            [HW, HH, 0, 1]
-        ])
+        self.vertex_to_screen_matrix = np.array([
+            [render.HfWidth,0,0,0],
+            [0,-render.HfHeight,0,0],
+            [0,0,1,0],
+            [render.HfWidth,render.HfHeight,0,0]
+            ])
