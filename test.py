@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import numpy as np
 import pygame as pg
 from projection import *
@@ -12,7 +11,7 @@ class Render:
         self.FPS, self.clock = 60, pg.time.Clock()
         self.screen = pg.display.set_mode(self.res, pg.RESIZABLE)
         self.camera = Camera(self, [-0.5, 0.5, -4])
-        self.projection = Projection_Matrix(self)
+        self.projection = Projection(self)
         self.object = Object3d(self)
 
     def draw(self):
